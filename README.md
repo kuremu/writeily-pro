@@ -1,3 +1,5 @@
+#This version (kuremu/writeily-pro) sorts notes by date modified
+
 #THIS PROJECT IS NO LONGER UNDER ACTIVE DEVELOPMENT
 
 
