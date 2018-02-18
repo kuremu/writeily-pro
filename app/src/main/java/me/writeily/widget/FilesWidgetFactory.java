@@ -8,6 +8,8 @@ import android.widget.RemoteViewsService;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import me.writeily.R;
 import me.writeily.model.Constants;
@@ -43,6 +45,11 @@ public class FilesWidgetFactory implements RemoteViewsService.RemoteViewsFactory
                 return !pathname.isDirectory();
             }
         });
+        Arrays.sort(this.widgetFilesList, new Comparator<File>(){
+            public int compare(File f1, File f2)
+            {
+                return Long.valueOf(f1.lastModified()).compareTo(f2.lastModified());
+            } });
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.BaseAdapter;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Collections;
 
 import org.apache.commons.io.IOUtils;
 
@@ -20,6 +23,19 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+class FileDateComparator implements Comparator<File>
+{
+       @Override
+       public int compare(File o1, File o2)
+       {
+           if(o1.lastModified() > o2.lastModified())
+               return -1;
+           if(o1.lastModified()==o2.lastModified())
+               return 0;
+          return 1;
+       }
+    }
 
 /**
  * Created by jeff on 14-12-11.
@@ -204,6 +220,12 @@ public class WriteilySingleton {
                 }
             }
         }
+
+        Collections.sort(addedFiles, new FileDateComparator(){
+            public int compare(File f1, File f2)
+            {
+                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+            } });
 
         // Append addedFiles to files so directories appear first
         files.addAll(addedFiles);
